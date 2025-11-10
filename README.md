@@ -117,6 +117,32 @@ docker compose logs -f [service-name]
 ### Issue: Loki shows "Ingester not ready"
 **Solution**: This is normal during startup. Wait 15-20 seconds for Loki to fully initialize.
 
+## Security Considerations
+
+**⚠️ Important: This setup is for development/demonstration purposes.**
+
+For production use, you should:
+
+1. **Secure Actuator Endpoints:**
+   - Add Spring Security to protect `/actuator` endpoints
+   - Use authentication for Prometheus scraping
+   - Limit exposed actuator endpoints to only what's needed
+
+2. **Database Security:**
+   - Change default passwords in docker-compose.yml
+   - Use environment variables or secrets management
+   - Enable SSL/TLS for database connections
+
+3. **Network Security:**
+   - Use private networks for service communication
+   - Add firewall rules to restrict access
+   - Enable TLS for all services
+
+4. **Container Security:**
+   - Use specific image versions (already done)
+   - Scan images for vulnerabilities regularly
+   - Run containers as non-root users
+
 ## Development
 
 ### Building Services Locally
