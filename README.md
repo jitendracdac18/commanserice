@@ -34,7 +34,13 @@ cd ..
 ### 2. Start all services
 
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
+```
+
+Or simply (if you've already built):
+
+```bash
+docker compose up -d
 ```
 
 ### 3. Access the services
@@ -45,16 +51,22 @@ docker-compose up -d --build
 - **App Service**: http://localhost:8080
 - **Loki**: http://localhost:3100
 
-### 4. Stop all services
+### 4. Verify all services are running
 
 ```bash
-docker-compose down
+./health-check.sh
 ```
 
-### 5. Stop and remove all data
+### 5. Stop all services
 
 ```bash
-docker-compose down -v
+docker compose down
+```
+
+### 6. Stop and remove all data
+
+```bash
+docker compose down -v
 ```
 
 ## Service Details
@@ -89,14 +101,21 @@ docker-compose down -v
 2. Use a different registry mirror
 3. Wait a few hours and retry (rate limit reset)
 
+**Fixed Issues:**
+- Changed from MariaDB to MySQL 8.0 official image (more reliable)
+- Changed from openjdk:17-slim to eclipse-temurin:17-jre-alpine (OpenJDK images deprecated)
+
 ### Issue: Services not starting
 **Solution**: Check logs with:
 ```bash
-docker-compose logs -f [service-name]
+docker compose logs -f [service-name]
 ```
 
 ### Issue: Port already in use
 **Solution**: Stop conflicting services or change ports in docker-compose.yml
+
+### Issue: Loki shows "Ingester not ready"
+**Solution**: This is normal during startup. Wait 15-20 seconds for Loki to fully initialize.
 
 ## Development
 
